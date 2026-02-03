@@ -10,7 +10,7 @@ const RestaurantCard = ({resData}) => {
     avgRating,
     costForTwo,
 } = resData?.info
-console.log(cloudinaryImageId);
+console.log( 'data:',cloudinaryImageId);
 
  
 const {deliveryTime} = resData?.info?.sla

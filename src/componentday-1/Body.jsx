@@ -29,7 +29,9 @@ const Body = () => {
     
 
     useEffect(()=>{
-        fetchData();
+       setTimeout(()=>{
+         fetchData();
+       },2000)
     },[])
   return  filteredRestaurant.length === 0 ? (
     <Shimmer />
