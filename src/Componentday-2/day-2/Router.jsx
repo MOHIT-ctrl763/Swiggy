@@ -1,9 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
-import AppLayout from "./day-2/App";
-import Body from "../componentday-1/Body";
+import AppLayout from "./App";
+import Body from "./Body";
 import About from "./About";
 import Contact from "./Contact";
-
+import RestaurantMenu from "./RestuarentMenu";
 
 const router = createBrowserRouter([
   {
@@ -11,7 +11,7 @@ const router = createBrowserRouter([
     element: <AppLayout />,
     children: [
       {
-        path: '/',
+        path: "/",
         element: <Body />,
       },
 
@@ -23,11 +23,13 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
-      }
-
-    ]
-   
+      },
+      {
+        path: "/restaurants/:id",
+        element: <RestaurantMenu />,
+      },
+    ],
   },
 ]);
 
-export default router
+export default router;

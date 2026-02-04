@@ -1,12 +1,13 @@
 import React, { useEffect,useState } from 'react'
 import RestaurantCard from './RestaurantCard';
+// import Shimmer from './Shimmer';
 import Shimmer from './Simer';
+import { Link } from 'react-router-dom';
 const Body = () => {
     const [listOfRestaurant,setListOfRestaurant] = useState([]);
     const [filteredRestaurant,setFilteredRestaurant] = useState([]);
     const[searchText,setSearchText]=useState('')
     // console.log(filteredRestaurant)
-    
 
 
     const fetchData = async ()=>{
@@ -19,7 +20,6 @@ const Body = () => {
         })
 
         // console.log(restaurantCard)
-        
 
         setListOfRestaurant(restaurantCard?.card?.card?.gridElements?.infoWithStyle?.restaurants)
         setFilteredRestaurant(restaurantCard?.card?.card?.gridElements?.infoWithStyle?.restaurants);
@@ -29,28 +29,25 @@ const Body = () => {
     
 
     useEffect(()=>{
-       setTimeout(()=>{
-         fetchData();
-       },2000)
+        fetchData();
     },[])
-  return  filteredRestaurant.length === 0 ? (
+  return listOfRestaurant.length === 0 ? (
     <Shimmer />
   ) :  (
     <div className='body'>
 
       <div className='filter'>
         <div className='search'>
-          <input value={searchText} onChange={(e)=>{
+          <input onChange={(e)=>{
             setSearchText(e.target.value)
           }} type="text" placeholder='Search a restaurant you want...' className='searchBox'/>
           <button onClick={()=>{
-            // console.log(searchText)
+            console.log(searchText)
             const filtered = listOfRestaurant.filter((res)=>{
              return res.info.name.toLowerCase().includes(searchText.toLowerCase());
             })
 
              setFilteredRestaurant(filtered);
-             setSearchText('')
           }}>Search</button>
         </div>
 
@@ -59,7 +56,6 @@ const Body = () => {
             return res.info.avgRating>4.5
           })
 
-
           setFilteredRestaurant(filtered)
         }}>Top Rated Restaurants</button>
       </div>
@@ -67,7 +63,9 @@ const Body = () => {
       <div className='res-container'>
        {
         filteredRestaurant.map((restaurants)=>{
-          return <RestaurantCard key={restaurants.info.id} resData={restaurants}/>
+          return <Link key={restaurants.info.id} to={`/restaurants/${restaurants.info.id}`}>
+            <RestaurantCard resData={restaurants}/>
+          </Link>
         })
        }
       </div>
@@ -75,6 +73,5 @@ const Body = () => {
     </div>
   )
 }
-
 
 export default Body
